@@ -19,8 +19,8 @@ const spellRoutes = require('./spellRoutes');
 const questRoutes = require('./questRoutes');
 const jwtMiddleware = require('../middlewares/jwtMiddleware');
 const bcryptMiddleware = require('../middlewares/bcryptMiddleware');
-// const userController = require('../controllers/userController');
-// const messageRoutes = require('./messageRoutes');
+const userController = require('../controllers/userController');
+const messageRoutes = require('./messageRoutes');
 // const adminRoutes = require('./adminRoutes')
 
 
@@ -33,13 +33,11 @@ router.use('task_progress', progressRoutes);
 router.use('/wizard', wizardRoutes);
 router.use('/spells', spellRoutes);
 router.use('/quests', questRoutes)
-// router.use('/messages', messageRoutes)
+router.use('/messages', messageRoutes)
 // router.use('/admin', adminRoutes)
 
-
-
-// router.post("/login", userController.login, bcryptMiddleware.comparePassword, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
-// router.post("/register", userController.checkUsernameOrEmailExist, bcryptMiddleware.hashPassword, userController.register, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
+router.post("/login", userController.login, bcryptMiddleware.comparePassword, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
+router.post("/register", userController.checkUsernameOrEmailExist, bcryptMiddleware.hashPassword, userController.register, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
 // ##############################################################
 // EXPORT ROUTER
 // ##############################################################
