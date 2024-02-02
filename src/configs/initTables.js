@@ -9,15 +9,6 @@ const pool = require("../services/db");
 const SQLSTATEMENT = `
 
 
-DROP TABLE IF EXISTS Player;
-DROP TABLE IF EXISTS Spell;
-DROP TABLE IF EXISTS SpellOwnership;
-DROP TABLE IF EXISTS Wizard;
-DROP TABLE IF EXISTS Task;
-DROP TABLE IF EXISTS TaskProgress;
-DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Messages;
-
 
 CREATE TABLE Messages (
   id INT PRIMARY KEY AUTO_INCREMENT,
