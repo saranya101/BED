@@ -14,7 +14,7 @@ const progressRoutes = require('./progressRoutes');
 
 
 // // SECTION B
-// const wizardRoutes = require('./wizardRoutes');
+const wizardRoutes = require('./wizardRoutes');
 // const spellRoutes = require('./spellRoutes');
 // const questRoutes = require('./questRoutes');
 // const jwtMiddleware = require('../middlewares/jwtMiddleware');
@@ -30,7 +30,7 @@ const progressRoutes = require('./progressRoutes');
 router.use('/users', userRoutes);
 router.use('/tasks', taskRoutes);
 router.use('task_progress', progressRoutes);
-// router.use('/wizard', wizardRoutes);
+router.use('/wizard', wizardRoutes);
 // router.use('/spells', spellRoutes);
 // router.use('/quests', questRoutes)
 // router.use('/messages', messageRoutes)
