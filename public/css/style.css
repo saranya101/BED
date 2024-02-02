@@ -1,0 +1,618 @@
+body {
+    background-color: #05031d;
+    background-image: url(background.jpeg);
+  }
+  
+  
+  main {
+    min-height: calc(100vh - 56px - 56px);
+  }
+  
+  .navbar {
+    background-color: rgb(22, 9, 85)
+  }
+  
+  .mt-auto {
+    background-color: #2c1a6e;
+  }
+  
+  .btn {
+    background-color: #512278;
+  }
+  
+  .py4 {
+    padding-top: 1000px;
+  }
+  
+  .text-center {
+    color: rgb(201, 220, 246);
+    margin-top: 20px;
+  }
+  
+  .wizards p {
+    text-align: center;
+    padding-top: 30px;
+    color: #2c659d
+  }
+  
+  .adventure {
+    padding-left: 60px;
+    padding-top: 40px
+  }
+  
+  .adventure h5 {
+    font-weight: bold;
+  }
+  
+  .others {
+    padding-top: 10px;
+    padding-left: 60px;
+  }
+  
+  .others h5 {
+    font-weight: bold;
+  }
+  
+  .end h4 {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 125px;
+    color: #fff;
+    font-size: 30px;
+  }
+  
+  .end p {
+    text-align: center;
+    font-size: 18px;
+    color: #ced4da;
+  }
+  
+  /* Center the form */
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  /* Style form inputs and labels */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+  
+  /* Style the submit button */
+  button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style the warning card */
+  #warningCard {
+    max-width: 400px;
+    margin: 1rem auto;
+  }
+  
+  
+  #addMoreButton {
+    margin-bottom: 20px;
+    /* Adjust the value as needed */
+  }
+  
+  #MessageList {
+    margin-left: 30px;
+    margin-right: 30px
+  }
+  
+  body {
+    padding-bottom: 100px;
+    /* Ensure space for the footer */
+  }
+  
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+  }
+  
+  main {
+    margin-bottom: 70px;
+    /* Adjust margin to keep space between form and footer */
+  }
+  
+  .container-form {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  
+  
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  
+  .card-text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .spells-quests {
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+  
+  .card1 {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .text-center-profile {
+    color: rgb(11, 2, 38);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .cardquest {
+    width: 100%;
+    margin-top: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Card styles */
+  .card2,
+  .card3 {
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+    background-color: #94aed4;
+    border-radius: 5px;
+    margin-top: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .card2 .card-body,
+  .card3 .card-body {
+    padding: 20px;
+  }
+  
+  .card2 p,
+  .card3 p {
+    color: white;
+    -webkit-text-stroke: 0.5px rgb(213, 202, 202);
+    /* For webkit browsers */
+  
+  }
+  
+  /* Adventure card specific styles */
+  .adventure h5 {
+    color: #007bff;
+    /* Blue color */
+  }
+  
+  /* Complete Quests and Forge Alliances card specific styles */
+  .card3 h5 {
+    color: #1d4471;
+    font-weight: bold;
+  }
+  
+  .card2 h5 {
+    color: #26799a;
+    font-weight: bold;
+  }
+  
+  /* Responsive styles for small screens */
+  @media (max-width: 768px) {
+  
+    .card2,
+    .card3 {
+      margin-bottom: 15px;
+    }
+  }
+  
+  .card2, .card3 {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card3 .card-body {
+    flex: 1;
+  }
+  
+  .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .btn-login {
+    color: #376699
+  }
+  
+  .row1 {
+    background-color: rgb(143, 192, 235);
+    padding: 20px;
+    /* Reduced padding */
+    padding-bottom: 90px;
+    border-radius: 10px;
+    border-color: #000000;
+    align-items: center;
+    margin: 175px;
+  }
+  
+  
+  #end footer .wave {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: #6196C1 url(wave.png);
+    background-size: 1000px;
+  
+  }
+  
+  footer .waves #wave1 {
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 4s linear infinite;
+  }
+  
+  
+  @keyframes animateWave {
+    0% {
+      background-position-x: 1000px;
+    }
+  }
+  
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    /* Ensures the navbar stays on top of other content */
+  }
+  
+  .plus-button {
+    position: fixed;
+    bottom: 70px;
+    /* Adjusted the bottom value */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #1a6691;
+    color: white;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /* Ensure it's on top of other elements */
+  }
+  
+  .plus-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    z-index: 1000;
+    /* Ensure it's on top of other content */
+  }
+  
+  .message-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    /* Add shadow effect */
+  }
+  
+  .message-textarea {
+    width: 100%;
+    height: 100px;
+    /* Adjust height as needed */
+    resize: none;
+    /* Disable textarea resizing */
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .send-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .plus-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  
+  /* Custom styles for the modal popup */
+  .modal-content {
+    background-color: #ffffff;
+    /* Background color */
+    border-radius: 10px;
+    /* Rounded corners */
+  }
+  
+  .modal-header {
+    background-color: #396697;
+    /* Header background color */
+    color: #ffffff;
+    /* Header text color */
+  
+  }
+  
+  .modal-title {
+    font-weight: bold;
+    /* Bold title */
+  }
+  
+  .modal-body {
+    padding: 20px;
+    /* Add padding inside the body */
+  }
+  
+  .modal-footer {
+    justify-content: flex-end;
+    /* Align footer content to the right */
+    border-top: none;
+    /* Remove border from the top */
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    background-color: #2e266b;
+    /* Button background color */
+    color: #ffffff;
+    /* Button text color */
+    border: none;
+    /* Remove border */
+  }
+  
+  .btn-primary:hover {
+    background-color: #3b8fa8;
+    /* Hover background color */
+  }
+  
+  .btn-close {
+    color: #ffffff;
+    /* Close button color */
+  }
+  
+  .btn-close:hover {
+    color: #3f5a8f;
+    /* Close button hover color */
+  }
+  
+  
+  
+  .cardquest {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .square-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .square-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .square-button:focus {
+    outline: none;
+  }
+  
+  .square-button span {
+    font-size: 20px;
+    /* Adjust the font size of the plus sign */
+  }
+  
+  .spells-quests {
+    padding-top: 20px;
+    /* Add some padding at the top */
+  }
+  
+  .spells-quests .card {
+    border: none;
+    /* Remove the border from the cards */
+  }
+  
+  .spells-quests .card-body {
+    background-color: #f8f9fa;
+    /* Set background color for the card body */
+    border-radius: 10px;
+    /* Add some border radius for a rounded look */
+    padding: 20px;
+    /* Add some padding */
+  }
+  
+  .spells-quests .card-title {
+    margin-bottom: 20px;
+    /* Add margin at the bottom of the card title */
+  }
+  
+  .taskcard {
+    background-color: #fff;
+    /* Set background color to white */
+  }
+  
+  @media (max-width: 992px) {
+    .task-card {
+      flex-basis: calc(50% - 20px);
+      /* For smaller screens, set the width of each task card to 50% minus the margin */
+      max-width: calc(50% - 20px);
+      /* For smaller screens, set the maximum width of each task card */
+    }
+  }
+  
+  .navbar {
+    border-bottom: 2px solid rgb(0, 0, 0);
+    /* Adjust the color and thickness as needed */
+  }
+  
+  .Sustainabilitytext h2 {
+    color: rgb(120, 178, 228);
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    border-radius: 10px;
+    background-color: #c5defb;
+  }
+  
+  h1 {
+    color: white
+  }
+  
+  /* header styles */
+  .spheader {
+    min-height: 100vh;
+    background-image: url(snedhelp.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .sptext-box {
+    width: 90%;
+    color: rgb(255, 255, 255);
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    margin-left: 75px;
+  }
+  
+  .sptext-box h1 {
+    font-size: 60px;
+    color: #ffffff;
+    font-weight: 300;
+    padding-top: 330px;
+  }
+  
+  .sptext-box p {
+    margin: 10px 0px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+  }
+  
+  #signupForm {
+    background-color: #8bb7ea;
+    padding-top: 50px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 25px;
+    max-width: 90%;
+    border-radius: 15px;
+  }
+  
+  .bg h1{
+    text-align: center;
+    color: white;
+    padding-bottom: 25px;
+  }
+  .bg h2{
+    text-align: center;
+    padding-top: 30px;
+    color: white;
+  }
+  .bg p{
+    color:white;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    padding-bottom: 20px;
+  }
+  .bg{
+    padding-top: 100px;
+  }
+  
+  .bg{
+    padding-top: 100px;
+  }
+  .bg-primary {
+    background-color: #01d28e !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+  
+  }
