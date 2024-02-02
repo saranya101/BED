@@ -11,7 +11,7 @@ module.exports.ValidateUserExistence = (req, res, next) => {
     const data = {
         user_id: req.body.user_id
     };
-
+   
     const callback = (error, results, fields) => {
         if (error) {
             res.status(500).json(error);
@@ -58,7 +58,7 @@ module.exports.completedTask = (req, res, next) => {
         res.status(404).send();
         return;
     }
-
+      
     const data = {
         user_id: res.locals.userId,
         task_id: req.body.task_id
@@ -71,18 +71,18 @@ module.exports.completedTask = (req, res, next) => {
             console.error("Message: Internal server error", error);
             res.status(500).json(error);
         } else if (results && results.status === 409) {
-            // conflict of input 
+        // conflict of input 
             res.status(409).send({
                 message: 'Note is already in the database'
-            });
+            }); 
         } else {
             res.status(201).json({
-                // results
-
+        // results
+               
                 progress_id: results.insertId,
                 user_id: data.user_id,
                 task_id: data.task_id
-
+        
             });
         }
     };
@@ -92,11 +92,17 @@ module.exports.completedTask = (req, res, next) => {
 
 
 module.exports.createNewProgress = (req, res, next) => {
+    // if (req.body.user_id == undefined || req.body.task_id == undefined) {
+    //     res.status(400).json({
+    //         message: "Missing required data"
+    //     });
+    //     return;
+    // }
     const data = {
-        user_id: res.locals.userId,
-        task_id: req.params.task_id
+        user_id : res.locals.userId,
+        task_id : req.params.task_id
     }
-
+ 
     const callback = (error, results, fields) => {
         console.log(results)
         // console.log(results)
@@ -104,16 +110,26 @@ module.exports.createNewProgress = (req, res, next) => {
             console.error("Error updatePlayerById:", error);
             res.status(500).json(error);
         } else {
-            if (results.affectedRows == 0) {
+            if(results.affectedRows == 0) 
+            {
                 res.status(404).json({
                     message: "Task or User not found"
                 });
             }
             else {
-                res.status(201).json(results);
-            }
-        }
-    }
+                // const getProgressdata = (error, results) => {
+                //     if (error) {
+                //         console.error("Error getting user data", error);
+                //         res.status(500).json(error);
+                //     }
+                //     else {
+                        res.status(201).json( results );
+                    }
+                // }
+                // model.gettingProgressData(data, getProgressdata);
+    //         }
+       }
+     }
     model.insertSingle(data, callback);
 }
 
@@ -193,12 +209,11 @@ module.exports.updateNotesById = (req, res, next) => {
 
 
 // ##############################################################
-// DEFINE CONTROLLER FUNCTION FOR DELETE TASK PROGRESS 
+// DEFINE CONTROLLER FUNCTION FOR DELETE TASK PROGRESS FROM TABLE
 // ##############################################################
-
 module.exports.deleteProgressById = (req, res, next) => {
-    const progressId = req.params.progress_id;
-
+    const progressId = req.params.progress_id; 
+    
     const callback = (error, results) => {
         if (error) {
             console.error("Error deleteProgressById:", error);

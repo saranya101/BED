@@ -68,7 +68,6 @@ module.exports.insertSingle = (data, callback) => {
 // ##############################################################
 // DEFINE SELECT BY ID OPERATIONS FOR TASK PROGRESS
 // ##############################################################
-
 module.exports.selectById = (data, callback) =>
 {
     const SQLSTATMENT = `
@@ -111,7 +110,6 @@ module.exports.fetchDetailsById = (progressId, callback) => {
 // ##############################################################
 // DEFINE DELETE OPERATIONS FOR TASKPROGRESS
 // ##############################################################
-
 module.exports.deleteById = (progressId, callback) => {
     const SQL_STATEMENT = `
         DELETE FROM TaskProgress

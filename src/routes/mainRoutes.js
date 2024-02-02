@@ -36,6 +36,7 @@ router.use('/quests', questRoutes)
 router.use('/messages', messageRoutes)
 router.use('/admin', adminRoutes)
 
+
 router.post("/login", userController.login, bcryptMiddleware.comparePassword, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
 router.post("/register", userController.checkUsernameOrEmailExist, bcryptMiddleware.hashPassword, userController.register, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
 // ##############################################################
