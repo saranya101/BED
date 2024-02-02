@@ -10,7 +10,7 @@ const router = express.Router();
 // SECTION A
 const userRoutes = require('./userRoutes');
 const taskRoutes = require('./taskRoutes');
-// const progressRoutes = require('./progressRoutes');
+const progressRoutes = require('./progressRoutes');
 
 
 // // SECTION B
@@ -29,7 +29,7 @@ const taskRoutes = require('./taskRoutes');
 // ##############################################################
 router.use('/users', userRoutes);
 router.use('/tasks', taskRoutes);
-// router.use('/task_progress', progressRoutes);
+router.use('task_progress', progressRoutes);
 // router.use('/wizard', wizardRoutes);
 // router.use('/spells', spellRoutes);
 // router.use('/quests', questRoutes)
