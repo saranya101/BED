@@ -1,0 +1,17 @@
+{
+  "name": "bed-ca2-saranya101",
+  "version": "1.0.0",
+  "description": "CA2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init_tables": "node src/configs/createSchema.js && node src/configs/initTables.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "saranya",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}
