@@ -16,9 +16,9 @@ const progressRoutes = require('./progressRoutes');
 // // SECTION B
 const wizardRoutes = require('./wizardRoutes');
 const spellRoutes = require('./spellRoutes');
-// const questRoutes = require('./questRoutes');
-// const jwtMiddleware = require('../middlewares/jwtMiddleware');
-// const bcryptMiddleware = require('../middlewares/bcryptMiddleware');
+const questRoutes = require('./questRoutes');
+const jwtMiddleware = require('../middlewares/jwtMiddleware');
+const bcryptMiddleware = require('../middlewares/bcryptMiddleware');
 // const userController = require('../controllers/userController');
 // const messageRoutes = require('./messageRoutes');
 // const adminRoutes = require('./adminRoutes')
@@ -32,7 +32,7 @@ router.use('/tasks', taskRoutes);
 router.use('task_progress', progressRoutes);
 router.use('/wizard', wizardRoutes);
 router.use('/spells', spellRoutes);
-// router.use('/quests', questRoutes)
+router.use('/quests', questRoutes)
 // router.use('/messages', messageRoutes)
 // router.use('/admin', adminRoutes)
 
