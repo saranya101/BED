@@ -33,10 +33,10 @@ module.exports.validatetask = (data, callback) => {
 module.exports.insertSingle = (data, callback) => {
     // insert values into the database
     const SQLSTATEMENT = `
-        INSERT INTO TaskProgress (user_id, task_id)
-        VALUES (?, ?);
+        INSERT INTO TaskProgress (user_id, task_id, completion_date, notes)
+        VALUES (?, ?, ?, ?);
     `;
-    const VALUES = [data.user_id, data.task_id];
+    const VALUES = [data.user_id, data.task_id, data.completion_date, data.notes];
 
     pool.query(SQLSTATEMENT, VALUES, (error, results) => {
         if (error) {

@@ -224,11 +224,12 @@ CREATE TABLE IF NOT EXISTS Admin (
 -- Creating the TaskProgress table
 CREATE TABLE TaskProgress (
   progress_id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT NOT NULL ,
+  user_id INT NOT NULL,
   task_id INT NOT NULL,
-  completion_date,
+  completion_date DATE,
   notes TEXT
 );
+
 
 CREATE TABLE SpellOwnership (
   ownership_id INT PRIMARY KEY AUTO_INCREMENT,

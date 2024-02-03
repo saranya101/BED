@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
             taskCard.className = "card mb-3";
             const cardBody = document.createElement("div");
             cardBody.className = "card-body d-flex justify-content-between align-items-center";
-            cardBody.backgroundColor = "#8499D5";
             const taskDetails = document.createElement("div");
 
             const taskTitle = document.createElement("h5");
@@ -26,7 +25,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add event listener to completeButton
             completeButton.addEventListener("click", function () {
-                completeTask(task.task_id); // Assuming task.id is available
+                const modal = document.getElementById("completeTaskModal");
+                const form = document.getElementById("completeTaskForm");
+
+                // Clear input fields
+                form.reset();
+
+                // Show the modal
+                const modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+
+                // Event listener for form submission
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault();
+
+                    const completionDate = document.getElementById("completionDate").value;
+                    const notes = document.getElementById("notes").value;
+
+                    // Call completeTask function with completion date and notes
+                    completeTask(task.task_id, completionDate, notes);
+
+                    // Hide the modal after submitting
+                    modalInstance.hide();
+                });
             });
 
             taskDetails.appendChild(taskTitle);
@@ -40,9 +61,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    const completeTask = (task_id) => {
+    const completeTask = (task_id, completionDate, notes) => {
         const token = localStorage.getItem("token");
         const url = currentUrl + "/api/task_progress/" + task_id + "/complete";
+
+        // Create a data object to send along with the request
+        const requestData = {
+            completion_date: completionDate,
+            notes: notes
+        };
 
         const callbackForComplete = (responseStatus, responseData) => {
             if (responseStatus === 201) {
@@ -57,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Make a POST request to mark the task as completed
-        fetchMethod(url, callbackForComplete, "POST", null, token);
+        fetchMethod(url, callbackForComplete, "POST", requestData, token);
     };
 
     fetchMethod(currentUrl + "/api/tasks", callback);
