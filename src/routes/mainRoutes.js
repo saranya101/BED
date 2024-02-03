@@ -13,7 +13,7 @@ const taskRoutes = require('./taskRoutes');
 const progressRoutes = require('./progressRoutes');
 
 
-// // SECTION B
+// SECTION B
 const wizardRoutes = require('./wizardRoutes');
 const spellRoutes = require('./spellRoutes');
 const questRoutes = require('./questRoutes');
@@ -29,12 +29,13 @@ const adminRoutes = require('./adminRoutes')
 // ##############################################################
 router.use('/users', userRoutes);
 router.use('/tasks', taskRoutes);
-router.use('task_progress', progressRoutes);
+router.use('/task_progress', progressRoutes);
 router.use('/wizard', wizardRoutes);
 router.use('/spells', spellRoutes);
 router.use('/quests', questRoutes)
 router.use('/messages', messageRoutes)
 router.use('/admin', adminRoutes)
+
 
 
 router.post("/login", userController.login, bcryptMiddleware.comparePassword, jwtMiddleware.generateToken, jwtMiddleware.sendToken);

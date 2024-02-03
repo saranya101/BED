@@ -22,4 +22,4 @@ router.delete('/:id', jwtMiddleware.verifyToken, controller.deleteMessageById);
 // ##############################################################
 // EXPORT ROUTER
 // ##############################################################
-module.exports = router;
+module.exports = router
