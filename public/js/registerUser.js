@@ -1,64 +1,74 @@
+// Execute the following code once the DOM content has loaded fully
 document.addEventListener("DOMContentLoaded", function () {
-    const signupForm = document.getElementById("signupForm");
-    const warningCard = document.getElementById("warningCard");
-    const warningText = document.getElementById("warningText");
-  
-    signupForm.addEventListener("submit", function (event) {
+  // Get a reference to the signup form
+  const signupForm = document.getElementById("signupForm");
+  // Get references to the warning card and warning text elements for displaying signup errors
+  const warningCard = document.getElementById("warningCard");
+  const warningText = document.getElementById("warningText");
+
+  // Add an event listener to the signup form for form submission
+  signupForm.addEventListener("submit", function (event) {
+      // Prevent the default form submission behavior
       event.preventDefault();
-  
+
+      // Retrieve user input values from the form
       const username = document.getElementById("username").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
-  
+
       // Perform signup logic
       if (password === confirmPassword) {
-        // Passwords match, proceed with signup
-        console.log("Signup successful");
-        console.log("Username:", username);
-        console.log("Email:", email);
-        console.log("Password:", password);
-        warningCard.classList.add("d-none");
-  
-        const data = {
-          username: username,
-          email: email,
-          password: password,
-        };
-  
-        const callback = (responseStatus, responseData) => {
-          console.log("responseStatus:", responseStatus);
-          console.log("responseData:", responseData);
-          if (responseStatus == 200) {
-            // Check if signup was successful
-            if (responseData.token) {
-              // Store the token in local storage
-              localStorage.setItem("token", responseData.token);
-              // Get the user_id from the response data and store it in local storage
-              const user_id = responseData.userId; // Assuming the response contains user_id
-              if (user_id) {
-                localStorage.setItem("user_id", user_id);
-                console.log("user_id stored in local storage:", user_id);
+          // Passwords match, proceed with signup
+          console.log("Signup successful");
+          console.log("Username:", username);
+          console.log("Email:", email);
+          console.log("Password:", password);
+          // Hide any previous warning messages
+          warningCard.classList.add("d-none");
+
+          // Prepare the data object containing the user information
+          const data = {
+              username: username,
+              email: email,
+              password: password,
+          };
+
+          // Define a callback function to handle server responses
+          const callback = (responseStatus, responseData) => {
+              console.log("responseStatus:", responseStatus);
+              console.log("responseData:", responseData);
+              // Check if the server response indicates a successful signup (status code 200)
+              if (responseStatus == 200) {
+                  // If a token is provided in the response, store it in local storage
+                  if (responseData.token) {
+                      localStorage.setItem("token", responseData.token);
+                      // Retrieve the user ID from the response data and store it in local storage
+                      const user_id = responseData.userId; // Assuming the response contains user_id
+                      if (user_id) {
+                          localStorage.setItem("user_id", user_id);
+                          // Log the stored user ID for debugging
+                          console.log("user_id stored in local storage:", user_id);
+                      }
+                      // Redirect the user to their profile page or perform further actions for logged-in user
+                      window.location.href = "profile.html";
+                  }
+              } else {
+                  // If the signup failed, display a warning message to the user
+                  warningCard.classList.remove("d-none");
+                  warningText.innerText = responseData.message;
               }
-              // Redirect or perform further actions for logged-in user
-              window.location.href = "profile.html";
-            }
-          } else {
-            warningCard.classList.remove("d-none");
-            warningText.innerText = responseData.message;
-          }
-        };
-  
-        // Perform signup request
-        fetchMethod(currentUrl + "/api/register", callback, "POST", data);
-  
-        // Reset the form fields
-        signupForm.reset();
+          };
+
+          // Send a POST request to the server's register endpoint with the user data
+          fetchMethod(currentUrl + "/api/register", callback, "POST", data);
+
+          // Reset the form fields after submission
+          signupForm.reset();
       } else {
-        // Passwords do not match, handle error
-        warningCard.classList.remove("d-none");
-        warningText.innerText = "Passwords do not match";
+          // Passwords do not match, display an error message to the user
+          warningCard.classList.remove("d-none");
+          warningText.innerText = "Passwords do not match";
       }
-    });
   });
-  
+});

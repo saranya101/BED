@@ -105,3 +105,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchMethod(currentUrl + `/api/users/${user_id}`, callback, "GET", null, localStorage.getItem("token"));
 });
+

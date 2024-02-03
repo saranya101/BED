@@ -1,18 +1,25 @@
+// Event listener for when the DOM content is loaded
 document.addEventListener("DOMContentLoaded", function () {
-    url = new URL(document.URL);
+    // Get the user ID from the URL parameters
+    const url = new URL(document.URL);
     const urlParams = url.searchParams;
     const user_id = urlParams.get("user_id");
+
+    // Callback function to display user information
     const callbackForUserInfo = (responseStatus, responseData) => {
         console.log("responseStatus:", responseStatus);
         console.log("responseData:", responseData);
-  
+
+        // Get the element to display user information
         const UserInfo = document.getElementById("UserInfo");
-  
+
         if (responseStatus == 404) {
+            // Display message if user is not found
             UserInfo.innerHTML = `${responseData.message}`;
             return;
         }
-  
+
+        // Display user information
         UserInfo.innerHTML = `
             <div class="card">
                 <div class="card-body">
@@ -26,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
     };
-  
+
+    // Fetch user information
     fetchMethod(currentUrl + `/api/admin/oneuser/${user_id}`, callbackForUserInfo);
-  });
-  
+});

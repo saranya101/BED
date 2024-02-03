@@ -1,9 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Callback function to display spell information
     const callback = (responseStatus, responseData) => {
         console.log("responseStatus:", responseStatus);
         console.log("responseData:", responseData);
 
+        // Get the SpellList element to display spells
         const SpellList = document.getElementById("SpellList");
+
+        // Iterate through each spell and create display elements
         responseData.forEach((spell) => {
             const displayItem = document.createElement("div");
             displayItem.className = "col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 p-3"; // Updated column classes
@@ -31,18 +35,19 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     };
+
+    // Function to handle buying a spell
     const buySpell = (spellId) => {
         const token = localStorage.getItem("token");
         const url = currentUrl + "/api/spells/purchase/" + spellId;
-    
+
         const callbackForBuy = (responseStatus, responseData) => {
             if (responseStatus === 200) {
                 console.log("Spell purchased successfully.");
                 // Show success message
                 alert("Spell purchased successfully");
                 // Optionally, you can update the UI or perform any other actions here after purchasing the spell
-            }
-            else if (responseStatus === 409 && responseData && responseData.message === "Conflict: Spell already owned by user") {
+            } else if (responseStatus === 409 && responseData && responseData.message === "Conflict: Spell already owned by user") {
                 console.error("Conflict: Spell already owned by user.");
                 // Show alert for spell already owned
                 alert("Conflict: Spell already owned by user");
@@ -55,13 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Optionally, handle other error cases here
             }
         };
-        
-    
+
         // Make a POST request to buy the spell
         fetchMethod(url, callbackForBuy, "POST", null, token);
     };
-    
 
+    // Fetch spells and display them
     fetchMethod(currentUrl + "/api/spells", callback, "GET", null, localStorage.getItem("token"));
-
 });

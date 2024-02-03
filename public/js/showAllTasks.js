@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cardBody.className = "card-body d-flex justify-content-between align-items-center";
             const taskDetails = document.createElement("div");
 
+            // Create elements for task details
             const taskTitle = document.createElement("h5");
             taskTitle.className = "card-title";
             taskTitle.textContent = task.title;
@@ -19,12 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
             taskDescription.className = "card-text";
             taskDescription.textContent = "Description: " + task.description;
 
+            // Create complete button
             const completeButton = document.createElement("button");
             completeButton.className = "btn btn-primary";
             completeButton.textContent = "Complete Task";
 
             // Add event listener to completeButton
             completeButton.addEventListener("click", function () {
+                // Get necessary elements for modal and form
                 const modal = document.getElementById("completeTaskModal");
                 const form = document.getElementById("completeTaskForm");
 
@@ -39,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 form.addEventListener("submit", function(event) {
                     event.preventDefault();
 
+                    // Get completion date and notes
                     const completionDate = document.getElementById("completionDate").value;
                     const notes = document.getElementById("notes").value;
 
@@ -50,12 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
+            // Append elements to their respective parents
             taskDetails.appendChild(taskTitle);
             taskDetails.appendChild(taskDescription);
-
             cardBody.appendChild(taskDetails);
             cardBody.appendChild(completeButton);
-
             taskCard.appendChild(cardBody);
             taskList.appendChild(taskCard);
         });
@@ -87,5 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchMethod(url, callbackForComplete, "POST", requestData, token);
     };
 
+    // Fetch tasks data
     fetchMethod(currentUrl + "/api/tasks", callback);
 });

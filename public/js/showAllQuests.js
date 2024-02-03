@@ -1,14 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Define acceptQuest function
+    // Define a function to handle accepting quests
     const acceptQuest = (quest_id) => {
+        // Retrieve the token from local storage
         const token = localStorage.getItem("token");
+        // Construct the URL for accepting the quest
         const url = currentUrl + "/api/quests/acceptquest/" + quest_id;
+
+        // Define a callback function for the accept quest request
         const callbackForAcceptQuest = (responseStatus, responseData) => {
             if (responseStatus === 200) {
                 console.log("Accepted quest successfully.");
-                // Show success message
+                // Show a success message
                 alert("Accepted Quest Successfully");
-                // Optionally, you can update the UI or perform any other actions here after completing the task
+                // Optionally, update the UI or perform other actions after completing the task
             } else {
                 console.error("Failed to accept quest.");
 
@@ -19,35 +23,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     setTimeout(() => {
                         alert(responseData.error); // Log after a short delay
                     }, 100);
-
                 } else if (responseStatus === 500) {
                     // Handle internal server errors
                     console.error("Internal server error.");
-                    // Show error message
+                    // Show an error message
                     alert("Failed to accept quest due to internal server error.");
-
                 } else if (responseStatus === 409) {
                     console.error('User has already accepted this quest')
                     alert("User has already accepted this quest");
-                }
-                else {
+                } else {
                     // Handle other error cases
                     console.error("Unknown error occurred.");
-                    // Show error message
+                    // Show an error message
                     alert("Failed to accept quest due to an unknown error.");
                 }
             }
         };
 
-
         // Make a POST request to mark the task as completed
         fetchMethod(url, callbackForAcceptQuest, "POST", null, token);
     };
 
+    // Define a callback function to handle the response from fetching quests
     const callback = (responseStatus, responseData) => {
         console.log("responseStatus:", responseStatus);
         console.log("responseData:", responseData);
 
+        // Get a reference to the container for displaying quests
         const QuestList = document.getElementById("QuestList");
 
         // Add a button for available tasks at the top
@@ -58,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         QuestList.appendChild(availableTasksButton);
 
+        // Iterate over each quest in the response data and create a display item for it
         responseData.forEach((quest) => {
             const displayItem = document.createElement("div");
             displayItem.className = "col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 p-3"; // Updated column classes
@@ -86,6 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    // Fetch quests data
+    // Fetch quests data and pass the callback function
     fetchMethod(currentUrl + "/api/quests", callback, "GET", null, localStorage.getItem("token"));
 });

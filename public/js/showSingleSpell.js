@@ -1,19 +1,25 @@
+// Event listener for when the DOM content is loaded
 document.addEventListener("DOMContentLoaded", function () {
+    // Get the spell ID from the URL parameters
     const url = new URL(document.URL);
     const urlParams = url.searchParams;
     const spell_id = urlParams.get("spell_id");
-  
+
+    // Callback function to display spell information
     const callbackForSpellInfo = (responseStatus, responseData) => {
         console.log("responseStatus:", responseStatus);
         console.log("responseData:", responseData);
-  
+
+        // Get the element to display spell information
         const spellInfo = document.getElementById("spellInfo");
-  
+
         if (responseStatus === 404) {
+            // Display message if spell is not found
             spellInfo.innerHTML = `${responseData.message}`;
             return;
         }
-  
+
+        // Display spell information
         spellInfo.innerHTML = `
             <div class="card">
                 <div class="card-body">
@@ -28,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
     };
+
+    // Fetch spell information
     fetchMethod(`/api/spells/spellid/${spell_id}`, callbackForSpellInfo);
-  });
-  
+});
