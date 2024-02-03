@@ -188,3 +188,21 @@ module.exports.selectByPurchase = (data, callback) => {
     const VALUES = [data.player_id];
     pool.query(SQLSTATEMENT, VALUES, callback);
 };
+
+
+
+
+// ##############################################################
+// DEFINE MODEL FUNCTION TO EDIT SPELL INFORMATION
+// ##############################################################
+
+module.exports.updateById = (data, callback) => {
+    const SQL_STATEMENT = `
+        UPDATE Spell
+        SET name = ?, description = ?
+        WHERE spell_id = ?;
+    `;
+    const VALUES = [data.name, data.description, data.spell_id];
+
+    pool.query(SQL_STATEMENT, VALUES, callback);
+};

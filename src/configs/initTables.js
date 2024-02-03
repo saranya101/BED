@@ -3,44 +3,59 @@
 // ##############################################################
 const pool = require("../services/db");
 
+
 // ##############################################################
 // DEFINE SQL STATEMENTS
 // ##############################################################
+
 const SQLSTATEMENT = `
 
+  CREATE TABLE Quest (
+    quest_id INT PRIMARY KEY AUTO_INCREMENT,
+    title TEXT,
+    description TEXT,
+    points_awarded INT,
+    magic_group_required TEXT
+  );
 
-DROP TABLE IF EXISTS Player;
-DROP TABLE IF EXISTS Spell;
-DROP TABLE IF EXISTS SpellOwnership;
-DROP TABLE IF EXISTS Wizard;
-DROP TABLE IF EXISTS Task;
-DROP TABLE IF EXISTS TaskProgress;
-DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Messages;
+  INSERT INTO Quest (title, description, points_awarded, magic_group_required)
+  VALUES
+  ('Master of Elements', 'Prove your mastery over the elements by casting spells from each elemental group.', 90, 'Fire, Ice, Electric, Earth'),
+  ('Mind Over Matter', 'Demonstrate your psychic abilities by completing tasks that require psychic spells.', 85, 'Psychic'),
+  ('Aerial Acrobat', 'Show your prowess in the air by completing tasks that require air-related spells.', 80, 'Air'),
+  ('Shadow Walker', 'Navigate the shadows and complete stealthy missions that require dark spells.', 90, 'Dark'),
+  ('Flame Guardian', 'Protect the realm using powerful fire spells.', 80, 'Fire'),
+  ('Frostbite Challenge', 'Survive the frozen tundra using ice spells to overcome obstacles.', 75, 'Ice'),
+  ('Shockwave Trial', 'Harness the power of electricity to overcome challenges and enemies.', 90, 'Electric'),
+  ('Earthquake Resilience', 'Test your strength and stability against tremors using earth spells.', 95, 'Earth'),
+  ('Mental Maze', 'Navigate through a labyrinth of the mind using psychic spells to unlock hidden secrets.', 85, 'Psychic'),
+  ('Windswept Heights', 'Ascend to new heights using air spells to propel yourself upward.', 85, 'Air'),
+  ('Shadow Stalker', 'Blend into the darkness and complete missions undetected using dark spells.', 95, 'Dark'),
+  ('Green Guardian', 'Defend the forest and its inhabitants with spells that harness the power of nature.', 100, 'Nature'),
+  ('Time Warp Challenge', 'Manipulate time to solve puzzles and overcome obstacles in this temporal trial.', 90, 'Temporal'),
+  ('Elemental Convergence', 'Combine spells from different elemental groups to unleash devastating power.', 95, 'Fire, Ice, Electric, Earth'),
+  ('Psionic Mastery', 'Unlock the full potential of your mind by mastering a variety of psychic spells.', 85, 'Psychic'),
+  ('Aerial Duel', 'Engage in high-flying combat using air spells to outmaneuver your opponents.', 80, 'Air'),
+  ('Nightshade Ninja', 'Become one with the shadows and strike from the darkness using dark spells.', 95, 'Dark'),
+  ('Temporal Triumph', 'Navigate through time loops and paradoxes to save a doomed civilization using temporal spells to rewrite history.', 90, 'Temporal'),
+  ('Phoenix Rebirth', 'Summon the legendary phoenix using fire spells to rise from the ashes and reignite hope in a desolate land.', 90, 'Fire'),
+  ('Arctic Odyssey', 'Embark on an epic journey across the frozen tundra using ice spells to carve a path through glaciers and icebergs.', 90, 'Ice'),
+  ('Electrokinetic Escapade', 'Escape from a high-security prison using electric spells to short-circuit security systems and power electronic locks.', 85, 'Electric'),
+  ('Earthen Enigma', 'Solve the riddles of an ancient civilization buried beneath the earth using earth spells to uncover hidden chambers and decipher ancient scripts.', 95, 'Earth'),
+  ('Psychic Pinnacle', 'Ascend to the peak of a mystical mountain and unlock psychic powers hidden within the mind.', 85, 'Psychic'),
+  ('Aerial Assault', 'Engage in aerial combat against dragon riders using air spells to outmaneuver and outgun your opponents.', 80, 'Air'),
+  ('Shadowed Sanctuary', 'Seek refuge in a hidden sanctuary shrouded in darkness using dark spells to evade pursuers and conceal your location.', 95, 'Dark');
 
 
-CREATE TABLE Messages (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  message_text TEXT NOT NULL,
-  user_id INT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO Messages (message_text, user_id)
- VALUES ('This is a sample message.', 1);
-
-
-
-
-CREATE TABLE Wizard (
+CREATE TABLE IF NOT EXISTS Wizard (
   wizard_id INT PRIMARY KEY AUTO_INCREMENT,
   wizard_name TEXT,
   special_ability TEXT,
   magic_group TEXT
 );
 
-
-INSERT INTO Wizard (wizard_name, special_ability, magic_group) VALUES
+INSERT INTO Wizard (wizard_name, special_ability, magic_group)
+VALUES
 ('Gandalf', 'Pyrotechnic Wizardry: Manipulating flames with finesse', 'Fire'),
 ('Gedron', 'Lightning Whisperer: Controlling electricity with precision', 'Electric'),
 ('Luna', 'Frost Weaver: Crafting intricate ice sculptures with magic', 'Ice'),
@@ -89,87 +104,12 @@ INSERT INTO Wizard (wizard_name, special_ability, magic_group) VALUES
 
 
 
-
-CREATE TABLE Spell (
-  spell_id INT PRIMARY KEY AUTO_INCREMENT,
-  name TEXT,
-  description TEXT,
-  points_cost INT,
-  magic_group TEXT
-);
-
--- Sample data for the Spell table
-INSERT INTO Spell (name, description, points_cost, magic_group)
-VALUES
-('Fireball', 'Launch a fiery projectile at the target.', 50, 'Fire'),
-('Invisibility', 'Become invisible for a short duration.', 30, 'Stealth'),
-('Teleportation', 'Instantly move to a different location.', 40, 'Transportation'),
-('Ice Shield', 'Create a protective barrier made of ice to deflect attacks.', 45, 'Ice'),
-('Mind Control', 'Manipulate the thoughts and actions of others.', 55, 'Psychic'),
-('Time Manipulation', 'Control and alter the flow of time.', 60, 'Temporal'),
-('Telekinesis', 'Move objects with the power of the mind.', 35, 'Psychic'),
-('Healing Touch', 'Restore health and vitality with a simple touch.', 25, 'Healing'),
-('Electrokinesis', 'Generate and control electricity at will.', 50, 'Electric'),
-('Shape-shifting', 'Transform into different animals or people.', 40, 'Morph'),
-('Gravity Manipulation', 'Control the gravitational forces in the environment.', 55, 'Gravity'),
-('Mind Reading', 'Read the thoughts and emotions of others.', 30, 'Psychic'),
-('Flight', 'Gain the ability to fly at incredible speeds.', 40, 'Air'),
-('Shadow Manipulation', 'Blend into and control shadows for stealth and offense.', 35, 'Dark'),
-('Earthquake Generation', 'Create powerful earthquakes to shake the ground.', 65, 'Earth'),
-('Energy Absorption', 'Absorb and channel various forms of energy.', 45, 'Energy'),
-('Bioluminescence', 'Generate light from the body for illumination.', 20, 'Light'),
-('Force Field', 'Create an impenetrable barrier for protection.', 50, 'Force'),
-('Acid Spit', 'Project corrosive acid from the mouth.', 30, 'Acid'),
-('Clairvoyance', 'Perceive events or information beyond normal senses.', 40, 'Psychic'),
-('Sonic Blast', 'Release powerful sonic waves to disorient foes.', 35, 'Sound'),
-('Magnetism Manipulation', 'Control and manipulate magnetic fields.', 55, 'Magnetic'),
-('Plant Control', 'Control and manipulate plant life.', 30, 'Nature'),
-('Pyrokinetic Flight', 'Fly using controlled bursts of fire.', 60, 'Fire'),
-('Duplication', 'Create duplicates of oneself for various tasks.', 45, 'Clone'),
-('Density Manipulation', 'Adjust personal density for increased strength or intangibility.', 50, 'Density'),
-('Hypnosis', 'Induce a trance-like state in others for suggestion.', 35, 'Psychic');
-
-
-
-CREATE TABLE User (
-  user_id INT PRIMARY KEY AUTO_INCREMENT,
-  username TEXT NOT NULL,
-  email TEXT NOT NULL,
-  password TEXT NOT NULL,
-  total_points INT DEFAULT 0,
-  wizard_id INT,
-  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  last_login_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (wizard_id) REFERENCES Wizard(wizard_id) ON DELETE SET NULL
-);
-
-CREATE TABLE Admin (
-  admin_id INT PRIMARY KEY AUTO_INCREMENT,
-  username TEXT NOT NULL,
-  email TEXT NOT NULL,
-  password TEXT NOT NULL,
-  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  last_login_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
 -- Creating the Task table
 CREATE TABLE Task (
   task_id INT PRIMARY KEY AUTO_INCREMENT,
   title TEXT,
   description TEXT,
   points INT
-);
-
--- Creating the TaskProgress table
-CREATE TABLE TaskProgress (
-  progress_id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT NOT NULL ,
-  task_id INT NOT NULL,
-  completion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -214,6 +154,81 @@ VALUES
 
 
 
+CREATE TABLE IF NOT EXISTS Spell (
+  spell_id INT PRIMARY KEY AUTO_INCREMENT,
+  name TEXT,
+  description TEXT,
+  points_cost INT,
+  magic_group TEXT
+);
+
+INSERT INTO Spell (name, description, points_cost, magic_group)
+VALUES
+('Fireball', 'Launch a fiery projectile at the target.', 50, 'Fire'),
+('Invisibility', 'Become invisible for a short duration.', 30, 'Stealth'),
+('Teleportation', 'Instantly move to a different location.', 40, 'Transportation'),
+('Ice Shield', 'Create a protective barrier made of ice to deflect attacks.', 45, 'Ice'),
+('Mind Control', 'Manipulate the thoughts and actions of others.', 55, 'Psychic'),
+('Time Manipulation', 'Control and alter the flow of time.', 60, 'Temporal'),
+('Telekinesis', 'Move objects with the power of the mind.', 35, 'Psychic'),
+('Healing Touch', 'Restore health and vitality with a simple touch.', 25, 'Healing'),
+('Electrokinesis', 'Generate and control electricity at will.', 50, 'Electric'),
+('Shape-shifting', 'Transform into different animals or people.', 40, 'Morph'),
+('Gravity Manipulation', 'Control the gravitational forces in the environment.', 55, 'Gravity'),
+('Mind Reading', 'Read the thoughts and emotions of others.', 30, 'Psychic'),
+('Flight', 'Gain the ability to fly at incredible speeds.', 40, 'Air'),
+('Shadow Manipulation', 'Blend into and control shadows for stealth and offense.', 35, 'Dark'),
+('Earthquake Generation', 'Create powerful earthquakes to shake the ground.', 65, 'Earth'),
+('Energy Absorption', 'Absorb and channel various forms of energy.', 45, 'Energy'),
+('Bioluminescence', 'Generate light from the body for illumination.', 20, 'Light'),
+('Force Field', 'Create an impenetrable barrier for protection.', 50, 'Force'),
+('Acid Spit', 'Project corrosive acid from the mouth.', 30, 'Acid'),
+('Clairvoyance', 'Perceive events or information beyond normal senses.', 40, 'Psychic'),
+('Sonic Blast', 'Release powerful sonic waves to disorient foes.', 35, 'Sound'),
+('Magnetism Manipulation', 'Control and manipulate magnetic fields.', 55, 'Magnetic'),
+('Plant Control', 'Control and manipulate plant life.', 30, 'Nature'),
+('Pyrokinetic Flight', 'Fly using controlled bursts of fire.', 60, 'Fire'),
+('Duplication', 'Create duplicates of oneself for various tasks.', 45, 'Clone'),
+('Density Manipulation', 'Adjust personal density for increased strength or intangibility.', 50, 'Density'),
+('Hypnosis', 'Induce a trance-like state in others for suggestion.', 35, 'Psychic');
+
+
+
+CREATE TABLE IF NOT EXISTS User (
+  user_id INT PRIMARY KEY AUTO_INCREMENT,
+  username TEXT NOT NULL,
+  email TEXT NOT NULL,
+  password TEXT NOT NULL,
+  total_points INT DEFAULT 0,
+  wizard_id INT,
+  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  last_login_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (wizard_id) REFERENCES Wizard(wizard_id) ON DELETE SET NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS Admin (
+  admin_id INT PRIMARY KEY AUTO_INCREMENT,
+  username TEXT NOT NULL,
+  email TEXT NOT NULL,
+  password TEXT NOT NULL,
+  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  last_login_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+-- Creating the TaskProgress table
+CREATE TABLE TaskProgress (
+  progress_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL ,
+  task_id INT NOT NULL,
+  completion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE SpellOwnership (
   ownership_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
@@ -223,41 +238,15 @@ CREATE TABLE SpellOwnership (
 );
 
   
-  CREATE TABLE Quest (
-    quest_id INT PRIMARY KEY AUTO_INCREMENT,
-    title TEXT,
-    description TEXT,
-    points_awarded INT,
-    magic_group_required TEXT
-  );
+CREATE TABLE IF NOT EXISTS Messages (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  message_text TEXT NOT NULL,
+  user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
+);
 
-  INSERT INTO Quest (title, description, points_awarded, magic_group_required)
-  VALUES
-  ('Master of Elements', 'Prove your mastery over the elements by casting spells from each elemental group.', 90, 'Fire, Ice, Electric, Earth'),
-  ('Mind Over Matter', 'Demonstrate your psychic abilities by completing tasks that require psychic spells.', 85, 'Psychic'),
-  ('Aerial Acrobat', 'Show your prowess in the air by completing tasks that require air-related spells.', 80, 'Air'),
-  ('Shadow Walker', 'Navigate the shadows and complete stealthy missions that require dark spells.', 90, 'Dark'),
-  ('Flame Guardian', 'Protect the realm using powerful fire spells.', 80, 'Fire'),
-  ('Frostbite Challenge', 'Survive the frozen tundra using ice spells to overcome obstacles.', 75, 'Ice'),
-  ('Shockwave Trial', 'Harness the power of electricity to overcome challenges and enemies.', 90, 'Electric'),
-  ('Earthquake Resilience', 'Test your strength and stability against tremors using earth spells.', 95, 'Earth'),
-  ('Mental Maze', 'Navigate through a labyrinth of the mind using psychic spells to unlock hidden secrets.', 85, 'Psychic'),
-  ('Windswept Heights', 'Ascend to new heights using air spells to propel yourself upward.', 85, 'Air'),
-  ('Shadow Stalker', 'Blend into the darkness and complete missions undetected using dark spells.', 95, 'Dark'),
-  ('Green Guardian', 'Defend the forest and its inhabitants with spells that harness the power of nature.', 100, 'Nature'),
-  ('Time Warp Challenge', 'Manipulate time to solve puzzles and overcome obstacles in this temporal trial.', 90, 'Temporal'),
-  ('Elemental Convergence', 'Combine spells from different elemental groups to unleash devastating power.', 95, 'Fire, Ice, Electric, Earth'),
-  ('Psionic Mastery', 'Unlock the full potential of your mind by mastering a variety of psychic spells.', 85, 'Psychic'),
-  ('Aerial Duel', 'Engage in high-flying combat using air spells to outmaneuver your opponents.', 80, 'Air'),
-  ('Nightshade Ninja', 'Become one with the shadows and strike from the darkness using dark spells.', 95, 'Dark'),
-  ('Temporal Triumph', 'Navigate through time loops and paradoxes to save a doomed civilization using temporal spells to rewrite history.', 90, 'Temporal'),
-  ('Phoenix Rebirth', 'Summon the legendary phoenix using fire spells to rise from the ashes and reignite hope in a desolate land.', 90, 'Fire'),
-  ('Arctic Odyssey', 'Embark on an epic journey across the frozen tundra using ice spells to carve a path through glaciers and icebergs.', 90, 'Ice'),
-  ('Electrokinetic Escapade', 'Escape from a high-security prison using electric spells to short-circuit security systems and power electronic locks.', 85, 'Electric'),
-  ('Earthen Enigma', 'Solve the riddles of an ancient civilization buried beneath the earth using earth spells to uncover hidden chambers and decipher ancient scripts.', 95, 'Earth'),
-  ('Psychic Pinnacle', 'Ascend to the peak of a mystical mountain and unlock psychic powers hidden within the mind.', 85, 'Psychic'),
-  ('Aerial Assault', 'Engage in aerial combat against dragon riders using air spells to outmaneuver and outgun your opponents.', 80, 'Air'),
-  ('Shadowed Sanctuary', 'Seek refuge in a hidden sanctuary shrouded in darkness using dark spells to evade pursuers and conceal your location.', 95, 'Dark');
+
   
 
 

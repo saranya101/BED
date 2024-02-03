@@ -10,18 +10,20 @@ const router = express.Router();
 const controller = require('../controllers/adminController')
 const jwtMiddleware = require('../middlewares/jwtMiddleware');
 const bcryptMiddleware = require('../middlewares/bcryptMiddleware');
-const userController = require('../controllers/userController')
+
 // ##############################################################
 // DEFINE ROUTES
 // ##############################################################
 router.post("/login", controller.login, bcryptMiddleware.comparePassword, jwtMiddleware.generateToken, jwtMiddleware.sendToken);
 router.get('/allusers', controller.readAllUsers)
 router.get('/oneuser/:user_id', controller.getSpecificUser)
-router.delete('/deleteuser/:user_id',jwtMiddleware.verifyToken, controller.deleteUserById);
+router.delete('/deleteuser/:user_id',jwtMiddleware.verifyToken, controller.deleteUser);
 
+router.delete('/deletemessages/:id', jwtMiddleware.verifyToken, controller.deleteMessageById);
 
-
-router.delete('/deletemessages/:id', jwtMiddleware.verifyToken, controller.deleteMessageById)
+router.post('/createspell', jwtMiddleware.verifyToken, controller.createSpell)
+router.put('/updatespell/:spell_id', jwtMiddleware.verifyToken, controller.updateSpell);
+router.delete('/deletespell/:spell_id', jwtMiddleware.verifyToken, controller.deleteSpell);
 // ##############################################################
 // EXPORT ROUTER
 // ##############################################################

@@ -39,7 +39,7 @@ module.exports.login = (req, res, next) => {
 
 
 // ##############################################################
-// DEFINE CONTROLLER TO READ ALL USERS IN DB
+// DEFINE CONTROLLER TO READ ALL
 // ##############################################################
 
 module.exports.readAllUsers = (req, res, next) => {
@@ -69,6 +69,12 @@ module.exports.readAllUsers = (req, res, next) => {
   
     model.selectAll(callback);
   };
+
+
+
+
+
+
 
 
 // ##############################################################
@@ -106,27 +112,24 @@ module.exports.readAllUsers = (req, res, next) => {
 // DEFINE CONTROLLER TO DELETE SPECIFIC USER
 // ##############################################################
 
-module.exports.deleteUserById = (req, res, next) => {
+module.exports.deleteUser = (req, res, next) => {
 
-  const user_id = req.params.user_id
+    const user_id = req.params.user_id
 
+    const callback = (error, results, fields) => {
+        if (error) {
+            console.error("Error deleteUserById:", error);
+            res.status(500).json(error);
+        } else {
+            if (results.affectedRows == 0) {
+                res.status(404).send();
+            }
+            else res.status(204).send(); // 204 No Content            
+        }
+    }
 
-  const callback = (error, results, fields) => {
-      if (error) {
-          console.error("Error deleteUserById:", error);
-          res.status(500).json(error);
-      } else {
-          if (results.affectedRows == 0) {
-              res.status(404).send();
-          }
-          else res.status(204).send(); // 204 No Content            
-      }
-  }
-
-  model.deleteById(user_id, callback);
+    model.deleteById(user_id, callback);
 }
-
-
 
 
 
@@ -134,6 +137,7 @@ module.exports.deleteUserById = (req, res, next) => {
 // ##############################################################
 // DEFINE CONTROLLER TO DELETE MESSAGES
 // ##############################################################
+
 
 module.exports.deleteMessageById = (req, res, next) => {
   const data = {
@@ -149,5 +153,95 @@ module.exports.deleteMessageById = (req, res, next) => {
       }
   }
 
-  model.deleteById(data, callback);
+  model.deleteByMessageId(data, callback);
 }
+
+
+
+
+
+// ##############################################################
+// DEFINE CONTROLLER TO CREATE SPELL
+// ##############################################################
+
+module.exports.createSpell = (req, res, next) => {
+    if (req.body.name === undefined || req.body.description === undefined|| req.body.points_cost === undefined || req.body.magic_group === undefined) {
+        res.status(404).send({
+            message : "Required data is undefined"
+        });
+        return;
+    }
+
+    const data = {
+        spell_id : req.params.spell_id,
+        name: req.body.name,
+        description: req.body.description,
+        points_cost: req.body.points_cost,
+        magic_group: req.body.magic_group
+    };
+    const callback = (error, results, fields) => {
+        if (error) {
+            console.error("Error Create Spell", error);
+            res.status(500).json(error);
+        } else {
+            res.status(200).json(results);
+        }
+    }
+    model.insertSpell(data, callback);
+};
+
+
+
+
+
+
+
+
+
+
+// ##############################################################
+// DEFINE CONTROLLER TO UPDATE SPELL BY ID
+// ##############################################################
+
+module.exports.updateSpell = (req, res, next) => {
+    if (req.body.name === undefined || req.body.description === undefined|| req.body.points_cost === undefined || req.body.magic_group === undefined) {
+        res.status(404).send({
+            message : "Required data is undefined"
+        });
+        return;
+    }
+
+    const data = {
+        spell_id : req.params.spell_id,
+        name: req.body.name,
+        description: req.body.description,
+        points_cost: req.body.points_cost,
+        magic_group: req.body.magic_group
+    };
+
+    model.updateById(data, (status, result) => {
+       console.log(result)
+    });
+};
+
+
+
+// ##############################################################
+// DEFINE CONTROLLER TO DELETE SPELL BY ID
+// ##############################################################
+
+module.exports.deleteSpell = (req, res, next) => {
+    const spell_id = req.params.spell_id
+    // Callback function to handle the response from the model
+    const callback = (error, result) => {
+        if (error) {
+            console.error("Error deleting spell:", error);
+            res.status(500).json({ error: "Internal server error" });
+        } else {
+            res.status(200).json({ message: "Spell deleted successfully" });
+        }
+    };
+
+    // Call the model function to delete the quest from user progress
+    model.deleteSpell(spell_id, callback);
+};

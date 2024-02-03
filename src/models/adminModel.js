@@ -32,9 +32,17 @@ pool.query(SQLSTATMENT, callback);
 }
 
 
+
+
+
+
+
+
+
 // ##############################################################
 // DEFINE MODEL FOR RETRIEVE SPECIFIC USER
 // ##############################################################
+
 
 const getUser = (user_id) => {
     
@@ -95,9 +103,15 @@ module.exports.selectById = async (data, callback) => {
 };
 
 
+
+
+
+
 // ##############################################################
-// DEFINE MODEL FOR DELETE USER BY ID
+// DEFINE MODEL FOR DELETE BY USER
 // ##############################################################
+
+
 module.exports.deleteById = (user_id, callback) => {
     const SQL_STATEMENT = `
         DELETE FROM User
@@ -110,13 +124,10 @@ module.exports.deleteById = (user_id, callback) => {
 
 
 
-
-
-
 // ##############################################################
 // DEFINE MODEL FOR DELETE MESSAGES 
 // ##############################################################
-module.exports.deleteById = (data, callback) =>
+module.exports.deleteByMessageId = (data, callback) =>
 {
     const SQLSTATMENT = `
     DELETE FROM Messages 
@@ -126,3 +137,65 @@ module.exports.deleteById = (data, callback) =>
 
     pool.query(SQLSTATMENT, VALUES, callback);
 }
+
+
+
+// ##############################################################
+// DEFINE MODEL FUNCTION TO CREATE SPELL
+// ##############################################################
+module.exports.insertSpell = (data, callback) =>
+{
+    const SQLSTATMENT = `
+    INSERT INTO Spell (name, description, points_cost, magic_group)
+    VALUES (?, ?, ?, ?);
+    `;
+    const VALUES = [data.name, data.description, data.points_cost, data.magic_group];
+
+    pool.query(SQLSTATMENT, VALUES, callback);
+}
+
+// ##############################################################
+// DEFINE MODEL FUNCTION TO EDIT SPELL INFORMATION
+// ##############################################################
+
+module.exports.updateById = (data, callback) => {
+    const SQL_STATEMENT = `
+        UPDATE Spell
+        SET name = ?, description = ?, points_cost = ?,  magic_group = ?
+        WHERE spell_id = ?;
+    `;
+    const VALUES = [data.name, data.description, data.points_cost, data.magic_group, data.spell_id];
+
+    pool.query(SQL_STATEMENT, VALUES, callback);
+};
+
+
+// ##############################################################
+// DEFINE MODEL FOR DELETE SPELLS
+// ##############################################################
+
+
+module.exports.deleteSpell = (spell_id, callback) => {
+    // SQL query to delete the quest from user progress
+    const deleteQuery = `
+        DELETE FROM Spell
+        WHERE spell_id = ?;
+    `;
+    const deleteValues = [spell_id];
+
+    // Execute the query
+    pool.query(deleteQuery, deleteValues, (error, results) => {
+        if (error) {
+            console.error('Error deleting spell:', error);
+            return callback(error);
+        }
+
+        // Check if the quest progress was deleted successfully
+        if (results.affectedRows === 0) {
+            return callback({ message: 'Spell not found' });
+        }
+
+        // Return success message
+        callback(null, { message: 'Spell deleted successfully' });
+    });
+};

@@ -155,3 +155,32 @@ module.exports.buySpell = (req, res) => {
         });
     });
 };
+
+// // ##############################################################
+// // DEFINE MODEL TO UPDATE SPELL BY ID
+// // ##############################################################
+
+// module.exports.updateSpell = (req, res, next) => {
+//     if (req.body.name === undefined) {
+//         res.status(404).send({
+//             message : "Spell Name is undefined"
+//         });
+//         return;
+//     }
+//     if (req.body.description === undefined) {
+//         res.status(404).send({
+//             message : "Spell Description is undefined"
+//         });
+//         return;
+//     }
+
+//     const data = {
+//         spell_id : req.params.spell_id,
+//         name: req.body.name,
+//         description: req.body.description
+//     };
+
+//     model.updateSpell(data, (status, result) => {
+//         res.status(status).json(result);
+//     });
+// };

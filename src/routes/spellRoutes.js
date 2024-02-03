@@ -18,7 +18,7 @@ router.get('/available/:user_id',jwtMiddleware.verifyToken, controller.selectByP
 router.get('/spellid/:spell_id', controller.selectBySpellId);
 router.post('/purchase/:spell_id', jwtMiddleware.verifyToken, controller.buySpell);
 router.get('/owned/:player_id', controller.selectBySpellIdPurchase);
-
+// router.put('/update/:spell_id', jwtMiddleware.verifyToken, controller.updateSpell)
 
 
 // ##############################################################
