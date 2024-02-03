@@ -21,9 +21,14 @@ router.delete('/deleteuser/:user_id',jwtMiddleware.verifyToken, controller.delet
 
 router.delete('/deletemessages/:id', jwtMiddleware.verifyToken, controller.deleteMessageById);
 
+
 router.post('/createspell', jwtMiddleware.verifyToken, controller.createSpell)
 router.put('/updatespell/:spell_id', jwtMiddleware.verifyToken, controller.updateSpell);
 router.delete('/deletespell/:spell_id', jwtMiddleware.verifyToken, controller.deleteSpell);
+
+router.post('/createquest', jwtMiddleware.verifyToken, controller.createQuest);
+router.put('/updatequest/:quest_id', jwtMiddleware.verifyToken, controller.updateQuest);
+router.delete('/deletequest/:quest_id', jwtMiddleware.verifyToken, controller.deleteQuest)
 // ##############################################################
 // EXPORT ROUTER
 // ##############################################################

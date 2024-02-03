@@ -96,10 +96,7 @@ const showAddSpellModal = () => {
             const callbackForCreate = (responseStatus, responseData) => {
                 if (responseStatus === 200) {
                     console.log("Spell created successfully.");
-                    alert("Spell created successfully."); // Add an alert message
-
-                    // Optionally, you can redirect to a different page after creating the spell
-                    // window.location.href = "your_redirect_page.html";
+                    alert("Spell created successfully."); 
                 } else {
                     console.error("Failed to create spell.");
                     // Optionally, handle error cases here
@@ -162,7 +159,7 @@ window.deleteSpell = (spellId) => {
                         <p class="card-text">
                             Description: <br>${spell.description}
                         </p>
-                        <a href="singlespellInfo.html?spell_id=${spell.spell_id}" class="btn btn-primary mr-2">View Details</a>
+                        <a href="singlespellInfoAdmin.html?spell_id=${spell.spell_id}" class="btn btn-primary mr-2">View Details</a>
                         <button class="btn btn-success mr-2" onclick="editSpell(${spell.spell_id})">Edit Spell</button>
                         <button class="btn btn-danger" onclick="deleteSpell(${spell.spell_id})">Delete Spell</button>
                     </div>

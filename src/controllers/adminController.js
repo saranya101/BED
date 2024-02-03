@@ -245,3 +245,87 @@ module.exports.deleteSpell = (req, res, next) => {
     // Call the model function to delete the quest from user progress
     model.deleteSpell(spell_id, callback);
 };
+
+
+
+// ##############################################################
+// DEFINE CONTROLLER TO CREATE QUESTS
+// ##############################################################
+
+
+module.exports.createQuest = (req, res, next) => {
+    if (req.body.title === undefined || req.body.description === undefined|| req.body.points_awarded === undefined || req.body.magic_group_required === undefined) {
+        res.status(404).send({
+            message : "Required data is undefined"
+        });
+        return;
+    }
+
+    const data = {
+        title: req.body.title,
+        description: req.body.description,
+        points_awarded: req.body.points_awarded,
+        magic_group_required: req.body.magic_required
+    };
+    const callback = (error, results, fields) => {
+        if (error) {
+            console.error("Error Create Quest", error);
+            res.status(500).json(error);
+        } else {
+            res.status(200).json(results);
+        }
+    }
+    model.insertQuest(data, callback);
+};
+
+
+// ##############################################################
+// DEFINE CONTROLLER TO UPDATE QUEST BY ID
+// ##############################################################
+
+module.exports.updateQuest = (req, res, next) => {
+    if (req.body.title === undefined || req.body.description === undefined|| req.body.points_awarded === undefined || req.body.magic_group_required === undefined) {
+        res.status(404).send({
+            message : "Required data is undefined"
+        });
+        return;
+    }
+
+    const data = {
+        quest_id : req.params.quest_id,
+        title: req.body.title,
+        description: req.body.description,
+        points_awarded: req.body.points_awarded,
+        magic_group_required: req.body.magic_group_required
+    };
+    const callback = (error, results, fields) => {
+        if (error) {
+            console.error("Error Update Quest", error);
+            res.status(500).json(error);
+        } else {
+            res.status(200).json(results);
+        }
+    }
+    model.updateQuest(data, callback);
+};
+
+
+// ##############################################################
+// DEFINE CONTROLLER TO DELETE QUEST BY ID
+// ##############################################################
+
+module.exports.deleteQuest = (req, res, next) => {
+    const quest_id = req.params.quest_id
+    // Callback function to handle the response from the model
+    const callback = (error, result) => {
+        if (error) {
+            console.error("Error deleting quest:", error);
+            res.status(500).json({ error: "Internal server error" });
+        } else {
+            res.status(200).json({ message: "Quest deleted successfully" });
+        }
+    };
+
+    // Call the model function to delete the quest from user progress
+    model.deleteQuest(quest_id, callback);
+};

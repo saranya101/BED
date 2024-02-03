@@ -170,10 +170,10 @@ module.exports.updateById = (data, callback) => {
 };
 
 
+
 // ##############################################################
 // DEFINE MODEL FOR DELETE SPELLS
 // ##############################################################
-
 
 module.exports.deleteSpell = (spell_id, callback) => {
     // SQL query to delete the quest from user progress
@@ -197,5 +197,67 @@ module.exports.deleteSpell = (spell_id, callback) => {
 
         // Return success message
         callback(null, { message: 'Spell deleted successfully' });
+    });
+};
+
+
+
+// ##############################################################
+// DEFINE MODEL FUNCTION TO CREATE QUEST
+// ##############################################################
+module.exports.insertQuest = (data, callback) =>
+{
+    const SQLSTATMENT = `
+    INSERT INTO Quest (title, description, points_awarded, magic_group_required)
+    VALUES (?, ?, ?, ?);
+    `;
+    const VALUES = [data.title, data.description, data.points_awarded, data.magic_group_required];
+
+    pool.query(SQLSTATMENT, VALUES, callback);
+}
+
+
+// ##############################################################
+// DEFINE MODEL FUNCTION TO EDIT QUEST INFORMATION
+// ##############################################################
+
+module.exports.updateQuest = (data, callback) => {
+    const SQL_STATEMENT = `
+        UPDATE Quest
+        SET title = ?, description = ?, points_awarded = ?,  magic_group_required = ?
+        WHERE quest_id = ?;
+    `;
+    const VALUES = [data.title, data.description, data.points_awarded, data.magic_group_required, data.quest_id];
+
+    pool.query(SQL_STATEMENT, VALUES, callback);
+};
+
+
+// ##############################################################
+// DEFINE MODEL FOR DELETE QUESTS
+// ##############################################################
+
+module.exports.deleteQuest = (quest_id, callback) => {
+    // SQL query to delete the quest from user progress
+    const deleteQuery = `
+        DELETE FROM Quest
+        WHERE quest_id = ?;
+    `;
+    const deleteValues = [quest_id];
+
+    // Execute the query
+    pool.query(deleteQuery, deleteValues, (error, results) => {
+        if (error) {
+            console.error('Error deleting quest:', error);
+            return callback(error);
+        }
+
+        // Check if the quest progress was deleted successfully
+        if (results.affectedRows === 0) {
+            return callback({ message: 'Quest not found' });
+        }
+
+        // Return success message
+        callback(null, { message: 'quest deleted successfully' });
     });
 };
