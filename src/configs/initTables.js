@@ -194,7 +194,7 @@ VALUES
 
 
 
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE User (
   user_id INT PRIMARY KEY AUTO_INCREMENT,
   username TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS User (
 );
 
 
-CREATE TABLE IF NOT EXISTS Admin (
+CREATE TABLE Admin (
   admin_id INT PRIMARY KEY AUTO_INCREMENT,
   username TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -220,27 +220,25 @@ CREATE TABLE IF NOT EXISTS Admin (
 
 
 
-
--- Creating the TaskProgress table
 CREATE TABLE TaskProgress (
   progress_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
   task_id INT NOT NULL,
   completion_date DATE,
-  notes TEXT
+  notes TEXT,
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (task_id) REFERENCES Task(task_id) ON DELETE CASCADE
 );
-
 
 CREATE TABLE SpellOwnership (
   ownership_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
   spell_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES User(user_id),
-  FOREIGN KEY (spell_id) REFERENCES Spell(spell_id)
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (spell_id) REFERENCES Spell(spell_id) ON DELETE CASCADE
 );
-
   
-CREATE TABLE IF NOT EXISTS Messages (
+CREATE TABLE Messages (
   id INT PRIMARY KEY AUTO_INCREMENT,
   message_text TEXT NOT NULL,
   user_id INT NOT NULL,
@@ -249,18 +247,14 @@ CREATE TABLE IF NOT EXISTS Messages (
 );
 
 
-  
-
-
-  
-  CREATE TABLE UserQuestProgress (
-    progress_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    quest_id INT,
-    completed BOOLEAN DEFAULT false,
-    FOREIGN KEY (user_id) REFERENCES User(user_id),
-    FOREIGN KEY (quest_id) REFERENCES Quest(quest_id)
-  );
+CREATE TABLE UserQuestProgress (
+  progress_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  quest_id INT,
+  completed BOOLEAN DEFAULT false,
+  FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (quest_id) REFERENCES Quest(quest_id) ON DELETE CASCADE
+);
 
 `;
 

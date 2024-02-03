@@ -108,18 +108,40 @@ const getuserQuests = (user_id) => {
     });
 };
 
+const getTaskProgress = (user_id) => {
+    return new Promise((resolve, reject) => {
+        const SQL_TASK_PROGRESS = `
+            SELECT tp.*, t.title, t.points
+            FROM TaskProgress tp
+            INNER JOIN Task t ON tp.task_id = t.task_id
+            WHERE tp.user_id = ?;
+        `;
+        const VALUES_TASK_PROGRESS = [user_id];
+        pool.query(SQL_TASK_PROGRESS, VALUES_TASK_PROGRESS, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
+
 module.exports.selectById = async (data, callback) => {
     try {
         const user = await getUser(data.user_id);
         const spells = await getuserSpells(data.user_id);
         const wizard = await getuserWizard(data.user_id);
         const quests = await getuserQuests(data.user_id);
+        const taskProgress = await getTaskProgress(data.user_id);
 
         const formattedResults = {
             user: user,
             spells: spells.length > 0 ? spells : 'No spells bought by this user',
             wizard: wizard,
-            quests: quests.length > 0 ? quests : 'No quests taken up by this user'
+            quests: quests.length > 0 ? quests : 'No quests taken up by this user',
+            taskProgress: taskProgress.length > 0 ? taskProgress : 'No task progress for this user'
         };
 
         callback(null, formattedResults);

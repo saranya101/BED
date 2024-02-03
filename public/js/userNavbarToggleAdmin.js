@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
       registerButton.classList.add("d-none");
       profileButton.classList.remove("d-none");
       logoutButton.classList.remove("d-none");
+      adminLoginButton.classList.add("d-none");
     } else {
       // Token does not exist, show login, register, and admin login buttons and hide profile and logout buttons
       console.log("Token does not exist");
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       registerButton.classList.remove("d-none");
       profileButton.classList.add("d-none");
       logoutButton.classList.add("d-none");
+      adminLoginButton.classList.remove("d-none");
     }
   
     logoutButton.addEventListener("click", function () {

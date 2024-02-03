@@ -1,6 +1,5 @@
 body {
     background-color: #05031d;
-    background-image: url(background.jpeg);
   }
   
   
@@ -546,14 +545,7 @@ body {
     color: white
   }
   
-  /* header styles */
-  .spheader {
-    min-height: 100vh;
-    background-image: url(snedhelp.jpg);
-    background-position: center;
-    background-size: cover;
-    position: relative;
-  }
+
   
   .sptext-box {
     width: 90%;
@@ -616,3 +608,18 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif !important;
   
   }
+
+
+  
+
+  
+  .spells, .quests{
+    margin-left: 50px;
+    padding: 20px; 
+  }
+
+
+.spells, .quests {
+    height: 100%; /* Ensure the container takes up full height */
+}
+
