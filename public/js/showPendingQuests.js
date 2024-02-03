@@ -65,28 +65,38 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchMethod(url, callbackForDelete, "DELETE", null, localStorage.getItem("token"));
     };
 
-    // Function to handle updating quest progress
-    window.completeQuest = (questId) => {
-        console.log("Updating quest progress for ID:", questId); // Log the questId to check if it's defined
+// Function to handle updating quest progress
+window.completeQuest = (questId) => {
+    console.log("Updating quest progress for ID:", questId); // Log the questId to check if it's defined
 
-        // Construct the URL for the update quest progress endpoint
-        const url = currentUrl + `/api/quests/questcompleted/${questId}`;
+    // Construct the URL for the update quest progress endpoint
+    const url = currentUrl + `/api/quests/questcompleted/${questId}`;
 
-        // Define the callback function for the update request
-        const callbackForUpdate = (responseStatus, responseData) => {
-            if (responseStatus === 200) {
-                console.log("Quest progress updated successfully.");
-                alert("Quest completed successfully."); // Add an alert message
-                window.location.href = "pendingquests.html";
-            } else {
-                console.error("Failed to update quest progress.");
-                // Optionally, handle error cases here
+    // Define the callback function for the update request
+    const callbackForUpdate = (responseStatus, responseData) => {
+        if (responseStatus === 200) {
+            console.log("Quest progress updated successfully.");
+            alert("Quest completed successfully."); // Add an alert message
+            
+            // Update the total points in the UI
+            const totalPointsElement = document.getElementById("totalPoints"); // Adjust the ID as needed
+            if (totalPointsElement) {
+                // Assuming responseData.total_points contains the updated total points value
+                totalPointsElement.textContent = responseData.total_points;
             }
-        };
 
-        // Make a PUT request to update the quest progress
-        fetchMethod(url, callbackForUpdate, "PUT", null, localStorage.getItem("token"));
+            // Redirect to the pendingquests page
+            window.location.href = "pendingquests.html";
+        } else {
+            console.error("Failed to update quest progress.");
+            // Optionally, handle error cases here
+        }
     };
+
+    // Make a PUT request to update the quest progress
+    fetchMethod(url, callbackForUpdate, "PUT", null, localStorage.getItem("token"));
+};
+
 
     // Fetch the quests to display
     fetchMethod(currentUrl + `/api/quests/pendingquests/${user_id}`, callbackForDisplay, "GET", null, localStorage.getItem("token"));

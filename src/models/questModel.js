@@ -199,12 +199,9 @@ module.exports.updateQuestProgress = (user_id, quest_id, callback) => {
 
             // Update the player's total points
             const updateTotalPointsQuery = `
-            UPDATE User
-            SET total_points = total_points + 80
-            WHERE user_id = (
-                SELECT user_id FROM (SELECT user_id FROM User WHERE user_id = ?) AS temp
-            );
-            
+                UPDATE User
+                SET total_points = total_points + ?
+                WHERE user_id = ?;
             `;
             const updateTotalPointsValues = [points_awarded, user_id];
 

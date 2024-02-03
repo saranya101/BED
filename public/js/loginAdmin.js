@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Store the token in local storage
           localStorage.setItem("token", responseData.token);
           // Redirect or perform further actions for logged-in user
-          window.location.href = "adminprofile.html";
+          window.location.href = "adminProfile.html";
         }
       } else {
         warningCard.classList.remove("d-none");

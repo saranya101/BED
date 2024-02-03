@@ -6,7 +6,7 @@ function deleteMessage(messageId) {
     const callbackForDelete = (responseStatus, responseData) => {
         if (responseStatus === 200) {
             console.log("Message deleted successfully.");
-            window.location.href = "messages1.html";
+            window.location.href = "ViewYourMessages.html";
             // Optionally, update the UI or perform any other actions here after deleting the message
         } else {
             console.error("Failed to delete message.");
