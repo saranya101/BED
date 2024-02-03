@@ -85,11 +85,28 @@
   <!-- Message List -->
   <div id="MessageList" class="row"></div>
 
-  </main>
-<!-- Message Creation Form -->
-<form id="createMessageForm">
+<!-- Modal for Editing Message -->
+<div class="modal fade" id="editMessageModal" tabindex="-1" aria-labelledby="editMessageModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editMessageModalLabel">Edit Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editMessageForm">
+          <div class="mb-3">
+            <label for="editMessageTextarea" class="form-label">Updated Message Text</label>
+            <textarea class="form-control" id="editMessageTextarea" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-</form>
 
   <footer class="mt-auto py-3 text-center">
     <p class="m-0 py-0 px-4">

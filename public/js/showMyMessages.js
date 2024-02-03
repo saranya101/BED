@@ -13,96 +13,69 @@ function deleteMessage(messageId) {
             // Optionally, handle error cases here
         }
     };
-    const updateMessageButton = (messageId) => {
-        const textareaId = `editMessageText_${messageId}`;
-        const updatedText = document.getElementById(textareaId).value;
-        editMessage(messageId, updatedText);
-    };
 
     // Make a DELETE request to delete the message
     fetchMethod(url, callbackForDelete, "DELETE", null, token);
 }
-// Function to handle update message button click
-const updateMessageButton = (messageId) => {
-    const textareaId = `editMessageText_${messageId}`;
-    const updatedText = document.getElementById(textareaId).value;
-    editMessage(messageId, updatedText);
+// Function to handle message editing
+const editMessage = (messageId, currentText) => {
+    const modal = document.getElementById("editMessageModal");
+    const textarea = document.getElementById("editMessageTextarea");
+    const form = document.getElementById("editMessageForm");
+
+    // Set the current message text in the textarea
+    textarea.value = currentText;
+
+    // Define the callback function for the update request
+    const callbackForEdit = (responseStatus, responseData) => {
+        if (responseStatus === 200) {
+            console.log("Message updated successfully.");
+            alert("Message updated successfully."); // Add an alert message
+            
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+            window.location.href = "ViewYourMessages.html";
+        } else {
+            console.error("Failed to update message.");
+            // Optionally, handle error cases here
+        }
+    };
+
+    // Event listener for form submission
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const updatedText = textarea.value.trim();
+
+        // Check if the updated text is not empty
+        if (updatedText !== "") {
+            // Construct the URL for the update message endpoint
+            const url = currentUrl + `/api/messages/${messageId}`;
+
+            // Make a PUT request to update the message
+            const data = { message_text: updatedText };
+            fetchMethod(url, callbackForEdit, "PUT", data, localStorage.getItem("token"));
+        } else {
+            // Show an alert if the updated text is empty
+            alert("Please enter a non-empty message.");
+        }
+    });
+
+    // Show the modal
+    const modalInstance = new bootstrap.Modal(modal);
+    modalInstance.show();
+};
+
+// Event listener for edit button click
+window.editMessage = (messageId, currentText) => {
+    editMessage(messageId, currentText);
 };
 
 
-    // Function to handle message editing
-    const editMessage = (messageId, updatedText) => {
-        const token = localStorage.getItem("token");
-        const url = currentUrl + `/api/messages/${messageId}`;
-
-        const data = {
-            message_text: updatedText
-        };
-
-        const callbackForEdit = (responseStatus, responseData) => {
-            if (responseStatus === 200) {
-                console.log("Message updated successfully.");
-                window.location.href = "messages1.html";
-                // Optionally, update the UI or perform any other actions here after updating the message
-            } else {
-                console.error("Failed to update message.");
-                // Optionally, handle error cases here
-            }
-        };
-
-        // Make a PUT request to update the message
-        fetchMethod(url, callbackForEdit, "PUT", data, token);
-    };
 document.addEventListener("DOMContentLoaded", function () {
     const url = new URL(document.URL);
     const urlParams = url.searchParams;
     const user_id = urlParams.get("user_id");
-    const createMessageForm = document.getElementById("createMessageForm");
-
-    // Function to handle message deletion
- 
-
-    // Event listener for message creation form submission
-    createMessageForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const messageText = document.getElementById("message_text").value;
-
-        // Perform message creation logic
-        if (messageText.trim() !== "") {
-            // Proceed with message creation
-            console.log("Message creation successful");
-            console.log("Message text:", messageText);
-
-            const data = {
-                message_text: messageText
-            };
-
-            const callback = (responseStatus, responseData) => {
-                console.log("responseStatus:", responseStatus);
-                console.log("responseData:", responseData);
-                if (responseData.token) {
-                    localStorage.getItem("token", responseData.token);
-                }
-                if (responseStatus === 201) {
-                    // Check if message creation was successful
-                    console.log("Message created successfully");
-
-                    // Redirect or perform further actions
-                    window.location.href = "messages1.html";
-                }
-
-            };
-
-            // Perform message creation request
-            fetchMethod(currentUrl + `/api/messages/${user_id}`, callback, "POST", data, localStorage.getItem("token"));
-
-            // Reset the form field
-            createMessageForm.reset();
-        }
-    });
-
-
 
     // Fetch the messages to display
     const callbackForDisplay = (responseStatus, responseData) => {
@@ -124,8 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         </p>
                         <button onclick="deleteMessage(${message.id})" class="btn btn-danger">Delete</button>
                         <button onclick="editMessage(${message.id}, '${message.message_text}')" class="btn btn-primary">Edit</button>
-                        <textarea id="editMessageText_${message.id}" rows="3" class="form-control mt-3" placeholder="Enter updated message text"></textarea>
-                        <button onclick="updateMessageButton(${message.id})" class="btn btn-primary mt-3">Update Message</button>
                     </div>
                 </div>
             `;
