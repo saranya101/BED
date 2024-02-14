@@ -41,7 +41,6 @@ Before running the tests, ensure that the following dependencies are installed:
 
 2. *Install dependencies*: Install the necessary dependencies by running the following command.
 
-   shell
    npm install
    npm init
    npm install dotenv express mysql2 nodemon
@@ -74,7 +73,7 @@ Before running the tests, ensure that the following dependencies are installed:
     
 
 
-2. *Accessing on broweser* : Run the program on a browser.
+2. *Accessing on browser* : Run the program on a browser.
 
 1. Go to a browser of your preference
 
