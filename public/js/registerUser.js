@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Username or email has already been used.");
             } else {
                   // If the signup failed, display a warning message to the user
-                  
                   warningText.innerText = responseData.message;
               }
           };
@@ -69,9 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
           // Reset the form fields after submission
           signupForm.reset();
       } else {
-          // Passwords do not match, display an error message to the user
        
-          warningText.innerText = "Passwords do not match";
+        alert("Passwords do not match");
       }
   });
 });
