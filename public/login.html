@@ -16,31 +16,22 @@
     <link href="css/color.css" rel="stylesheet" />
   </head>
   <body>
+  
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <a class="navbar-brand" href="index.html"><img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"
-            class="logo img-fluid" /></a>
+  
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <!-- me-auto: margin-right: auto -->
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="wizard.html">Wizards</a>
+              <a class="nav-link" href="features.html">Features</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="spells.html">Spells</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="task.html">Tasks</a>
-            </li>
-           
           </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -63,30 +54,29 @@
 
     <main class="py-1">
       <div class="container">
-          <div class="row justify-content-center mt-5 row1"> <!-- Added justify-content-center class -->
-              <div class="col-md-6 px-5">
-                  <h3 class="mb-4 text-center ">Login</h3>
-                  <form id="loginForm">
-                      <div class="form-group pb-3">
-                          <label for="username">Username</label>
-                          <input type="text" class="form-control" id="username" required>
-                      </div>
-                      <div class="form-group pb-3">
-                          <label for="password">Password</label>
-                          <input type="password" class="form-control" id="password" required>
-                      </div>
-                      <button type="submit" class="btn-login">Login</button>
-                  </form>
-                  <div id="warningCard" class="card border-danger mt-3 mb-3 d-none">
-                      <div class="card-body text-danger">
-                          <p id="warningText" class="card-text"></p>
-                      </div>
-                  </div>
+        <div class="row justify-content-center mt-5 row1">
+          <div class="col-md-6 px-3"> <!-- Adjusted column width for smaller screens -->
+            <h3 class="mb-4 text-center ">Login</h3>
+            <form id="loginForm">
+              <div class="form-group pb-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" required>
               </div>
+              <div class="form-group pb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Login</button> <!-- Added Bootstrap button styles -->
+            </form>
+            <div id="warningCard" class="card border-danger mt-3 mb-3 d-none">
+              <div class="card-body text-danger">
+                <p id="warningText" class="card-text"></p>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
-  </main>
-  
+    </main>
   
 
   <footer class="mt-auto py-3 text-center">

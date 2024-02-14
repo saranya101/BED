@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h5 class="card-title"></h5>
                         <p class="card-text">
                             Created By: ${message.username} <br>
-                            Message_text: ${message.message_text}<br>
+                            Message Text: ${message.message_text}<br>
                             Created On :${message.created_at}<br>
                         </p>
                     </div>

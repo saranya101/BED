@@ -24,7 +24,8 @@ const editSpell = (spellId) => {
             // Hide the modal and reload the page to reflect changes
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
-            window.location.href = "spellAdmin.html";
+            window.location.reload(); // Reload the page
+
         } else {
             console.error("Failed to update spell.");
             // Optionally, handle error cases here
@@ -102,6 +103,8 @@ const showAddSpellModal = () => {
                 if (responseStatus === 200) {
                     console.log("Spell created successfully.");
                     alert("Spell created successfully."); 
+                    window.location.reload(); // Reload the page
+
                 } else {
                     console.error("Failed to create spell.");
                     // Optionally, handle error cases here

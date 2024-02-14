@@ -53,8 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to delete a message
 function deleteMessage(messageId) {
-    // Retrieve the token from local storage for authentication
-    const token = localStorage.getItem("token");
     // Construct the URL for the DELETE request to delete the message with the given ID
     const url = currentUrl + `/api/admin/deletemessages/${messageId}`;
 
@@ -74,5 +72,5 @@ function deleteMessage(messageId) {
     };
 
     // Make a DELETE request to delete the message, passing the URL, callback function, request method, and token for authentication
-    fetchMethod(url, callbackForDelete, "DELETE", null, token);
+    fetchMethod(url, callbackForDelete, "DELETE", null, localStorage.getItem("token"));
 }

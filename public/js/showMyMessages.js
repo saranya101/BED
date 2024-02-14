@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text">
-                            Message_text: ${message.message_text}<br>
+                            Message Text: ${message.message_text}<br>
                             Created On :${message.created_at}<br>
                         </p>
                         <button onclick="deleteMessage(${message.id})" class="btn btn-danger">Delete</button>
