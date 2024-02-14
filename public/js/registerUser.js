@@ -53,9 +53,12 @@ document.addEventListener("DOMContentLoaded", function () {
                       // Redirect the user to their profile page or perform further actions for logged-in user
                       window.location.href = "profile.html";
                   }
-              } else {
+              }else if (responseStatus == 409) {
+                // If the signup failed due to conflict (status code 409), display an alert indicating that the username or email has been used already
+                alert("Username or email has already been used.");
+            } else {
                   // If the signup failed, display a warning message to the user
-                  warningCard.classList.remove("d-none");
+                  
                   warningText.innerText = responseData.message;
               }
           };
@@ -67,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
           signupForm.reset();
       } else {
           // Passwords do not match, display an error message to the user
-          warningCard.classList.remove("d-none");
+       
           warningText.innerText = "Passwords do not match";
       }
   });
